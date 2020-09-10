@@ -10,5 +10,6 @@ export interface IAuthConfig {
     redirect_url: string, 
     end_session_redirect_url: string, 
     scopes: string,
-    pkce : boolean
+    pkce : boolean,
+    keep_refreshtoken_on_refresh:boolean,
 }
