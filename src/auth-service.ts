@@ -186,15 +186,10 @@ export class AuthService implements IAuthService {
           redirect_uri: this.authConfig.redirect_url,
           client_id: this.authConfig.client_id,
         }    
-        console.log(`FRANZHELM_ionic-appauth: requestTokenRefresh() 1 requestJSON.refresh_token: ${requestJSON.refresh_token}`);
-        
         let token : TokenResponse = await this.tokenHandler.performTokenRequest(await this.configuration, new TokenRequest(requestJSON))
-
-        console.log(`FRANZHELM_ionic-appauth: this.authConfig.keep_refreshtoken_on_refresh: ${this.authConfig.keep_refreshtoken_on_refresh}, requestTokenRefresh() 2 token.refreshToken: ${token.refreshToken}`);
         if (this.authConfig.keep_refreshtoken_on_refresh){
             if (token.refreshToken==null || token.refreshToken.length==0){
                 token.refreshToken = requestJSON.refresh_token;
-                console.log(`FRANZHELM_ionic-appauth: requestTokenRefresh() 3 == null => use old refreshToken: ${token.refreshToken}`);
             }
         }
         await this.storage.setItem(TOKEN_RESPONSE_KEY, JSON.stringify(token.toJson()));
