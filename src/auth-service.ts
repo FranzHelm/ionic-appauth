@@ -238,6 +238,12 @@ export class AuthService implements IAuthService {
         });
     }
 
+    // instead of signout, only clear the session cache
+    public async clearStorage() {
+        await this.storage.clear();
+        this.endSessionCallback();
+    }
+
     public async refreshToken() {
         await this.requestTokenRefresh().catch((response) => { 
             this.storage.removeItem(TOKEN_RESPONSE_KEY);
